@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ <!-- Latest compiled and minified CSS -->
+
+  
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ <script src="lib/angular/angular.min.js"></script> 
+ <script src="js/module/user_module.js"> </script>
+ <script src="js/controllers/payment_Ctrl.js"></script>
+ <script src="js/controllers/customJS.js"></script>
+
+
+<style type="text/css">
+  .form-group input[type="checkbox"] + .btn-group > label.btn-primary, .form-group input[type="radio"] + .btn-group > label.btn-primary {
+    color: #004e5e;
+    background-color: #f2f6f6;
+    border-color: #004e5e;
+}
+  .myTextBox {
+  /*border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+  background-color: none;*/
+      
+      font-size: 22px; 
+      color: #004d4d;
+ }
+ 
+ .myTextBox:hover {
+  /*border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
+  background-color: none;
+  border-bottom: 1px solid #004d4d;*/
+  
+  font-size: 22px; 
+   color: #004d4d;
+ }
+
+
+
+ .myTextBox1 {
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: hidden;
+  background-color: none;
+      
+      font-size: 22px; 
+      color: #004d4d;
+ }
+  /* I made the background-color same as the page's background-color because this leaves just a line to type on. */
+  .myTextBox:focus {
+    /* This is the CSS code that runs when 'myTextBox' is focused */
+    outline: none;
+  }
+   body{
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+button.accordion {
+
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+button.accordion.active, button.accordion:hover {
+    background-color: #ccc; 
+}
+
+div.panel {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+}
+
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+     font-weight: 500;
+}
+
+.h3, h3 {
+    font-size: 18px;
+}
+
+.logo{
+  position: fixed;
+ 
+    margin-top: 0 !important;
+    position: fixed;
+    top: 0;
+    z-index: 1000000000000;
+    /* border-radius: 0 0 0.5em 0.5em; */
+    /* opacity: 31.478333; */
+    width: 100%;
+    
+ 
+ background-color: white;
+}
+
+div.dropdown-container{
+  display:none;
+}
+
+</style>
+
+
+</head>
+<body ng-app="myApp" ng-controller="payment_controller">
+  <div class="container-fluid" >
+    <div class="logo">
+    <div class="col-md-4"><br
+>      <img src="img/logo.png" class="img-responsive" width="70%">
+    </div>
+     <div class="col-md-6">
+      <br><br>
+      
+    </div>
+     <div class="col-md-4">
+      
+    </div>
+   </div>
+  </div>
+
+  <br><br>
+   <br><br>
+    <br><br>
+     <br><br>
+  
+  <div class="container">
+  
+    <h2>Basic Budget Calculator</h2>
+    <hr>
+    <br>
+    <div class="row">
+      <form>
+        <div id="dropdown-1" class="dropdown ">
+            <button class="accordion dropdown-link"> <h3>Income : {{( + totalIncome | currency)}}</h3></button>
+            <div class="panel dropdown-container">
+                <br>
+              <div class="row">
+          
+                <div class="col-md-2 col-md-4 col-sm-0 col-xs-0">
+                  
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+
+                  <label>Salary 1 after tax</label><br>
+                  <input type="text" class=" myTextBox form-control " ng-model="Salary1aftertax" onkeypress='return isNumber(event)'
+                        name="Salary1aftertax" id="applicationId" autofocus ng-change="calculationForIncome(Salary1aftertax,Salary2aftertax,Regularincomefrominvestments,Governmentallowance,Childsupport)">
+
+
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Comments</label><br>
+                  <input type="text" class="myTextBox form-control " ng-model="Salary1aftertaxcomments"  
+                           name="Salary1aftertaxcomments" id="applicationId" autofocus>
+                  
+                </div>
+                <div class="col-md-2 col-sm-0 col-xs-0"></div>
+              </div>
+
+              <br>
+              <div class="row">
+                <div class="col-md-2  col-sm-0 col-xs-0">
+                </div>
+                <div class="col-md-4  col-sm-6 col-xs-12">
+                  <label>Salary 2 after tax</label>
+                  <input type="text" class="myTextBox form-control" ng-model="Salary2aftertax" onkeypress='return isNumber(event)'
+                           name="Salary2aftertax" id="applicationId" autofocus ng-change="calculationForIncome(Salary1aftertax,Salary2aftertax,Regularincomefrominvestments,Governmentallowance,Childsupport)">
+
+
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Comments</label><br>
+                  <input type="text" class="myTextBox form-control" ng-model="Salary2aftertaxcomments"  
+                           name="Salary2aftertaxcomments" id="Salary2aftertaxcomments" autofocus>
+                  
+                </div>
+                <div class="col-md-2  col-sm-0 col-xs-0">
+                </div>
+              </div><br>
+
+              <div class="row">
+                <div class="col-md-2  col-sm-0 col-xs-0">
+                </div>
+                <div class="col-md-4  col-sm-6 col-xs-12">
+                  <label>Regular income from investments</label>
+                  <input type="text" class="myTextBox form-control" ng-model="Regularincomefrominvestments"  
+                  onkeypress='return isNumber(event)'
+                           name="Regularincomefrominvestments" id="applicationId" autofocus ng-change="calculationForIncome(Salary1aftertax,Salary2aftertax,Regularincomefrominvestments,Governmentallowance,Childsupport)">
+
+
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Comments</label><br>
+                  <input type="text" class="myTextBox form-control" ng-model="Regularincomefrominvestmentscomments"  
+                           name="Regularincomefrominvestmentscomments" id="Regularincomefrominvestmentscomments" autofocus>
+                  
+                </div>
+                <div class="col-md-2  col-sm-0 col-xs-0">
+                </div>
+              </div><br>
+
+              <div class="row">
+                <div class="col-md-2  col-sm-0 col-xs-0">
+                </div>
+                <div class="col-md-4">
+                  <label>Government allowance</label>
+                  <input type="text" class="myTextBox form-control " ng-model="Governmentallowance" 
+                  onkeypress='return isNumber(event)' 
+                           name="Governmentallowance" id="Governmentallowance" autofocus ng-change="calculationForIncome(Salary1aftertax,Salary2aftertax,Regularincomefrominvestments,Governmentallowance,Childsupport)">
+
+
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Comments</label><br>
+                  <input type="text" class="myTextBox form-control" ng-model="Governmentallowancecomments"  
+                           name="Governmentallowancecomments" id="Governmentallowancecomments" autofocus>
+                  
+                </div>
+
+                <div class="col-md-2  col-sm-0 col-xs-0">
+                </div>
+              </div><br>
+
+              <div class="row">
+                <div class="col-md-2 col-md-2  col-sm-0 col-xs-0">
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Child support</label>
+                  <input type="text" class="myTextBox form-control " ng-model="Childsupport" 
+                  onkeypress='return isNumber(event)' 
+                           name="Childsupport" id="Childsupport" autofocus  ng-change="calculationForIncome(Salary1aftertax,Salary2aftertax,Regularincomefrominvestments,Governmentallowance,Childsupport)">
+
+
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <label>Comments</label><br>
+                  <input type="text" class="myTextBox form-control" ng-model="Childsupportcomments"  
+                           name="Childsupportcomments" id="Childsupportcomments" autofocus>
+                  
+                </div>
+                <div class="col-md-2  col-sm-0 col-xs-0">
+                </div>
+              </div><br>
+              <div class="row">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-4 col-xs-12 col-sm-12">
+                  <label>Total</label><br>
+                  <input type="text" class="myTextBox form-control" ng-model="totalIncome" 
+                  onkeypress='return isNumber(event)' disabled
+                  name="Childsupportcomments" id="Childsupportcomments" autofocus
+
+                  ng-change="leftoverTotalExpenses(totalIncome,totalallExpenses)">
+                </div>
+                <div class="col-md-6  col-xs-12 col-sm-12">
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="dropdown-2" class="dropdown ">
+            <button class="accordion dropdown-link"><h3>Total Expenses {{(+ totalallExpenses | currency)}}</h3>
+            </button><!--TotalExpense-->
+
+         <div class="panel dropdown-container">
+            <br>
+            <div id="dropdown-3" class="dropdown ">
+              <button class="accordion dropdown-link"><h3>Household expenses :{{(+ totalhouseholdExpenses | currency)}}</h3></button>
+              <div class="panel dropdown-container">
+                <br>
+                  <!-- household expence-->
+                    <div class="row">
+                     
+                      
+                      <div class="col-md-2 col-sm-0 col-xs-0">
+                        
+                      </div>
+                      <div class="col-md-4 col-sm-6 col-xs-12">
+                        <label>Rent</label><br>
+                        <input type="text" class="myTextBox form-control" ng-model="Rent"  
+                                 name="Rent" id="Rent" autofocus 
+                                 onkeypress='return isNumber(event)' 
+                         ng-change="householdExpenses(Rent,Maintenance,Electricity,Gas,Water,Phone,Internet,CableTV
+                          ,Counciltaxes,BodyCorporate,HomeContentsinsurance)">
+                      
+
+
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Rentcomments"  
+                               name="Rentcomments" id="Rent" autofocus>
+                      
+                    </div>
+                    <div class="col-md-2 col-sm-0 col-xs-0">
+                        
+                      </div>
+                  </div> <br>
+                  <div class="row">
+                    <div class="col-md-2 col-sm-0 col-xs-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <label>Maintenance</label>
+                      <input type="text" class="myTextBox form-control " ng-model="Maintenance"  
+                               name="Maintenance" id="Maintenance" autofocus
+                               onkeypress='return isNumber(event)' 
+                        ng-change="householdExpenses(Rent,Maintenance,Electricity,Gas,Water,Phone,Internet,CableTV
+                        ,Counciltaxes,BodyCorporate,HomeContentsinsurance)">
+
+
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Maintenancecomments"  
+                               name="Maintenancecomments" id="Maintenancecomments" autofocus>
+                      
+                    </div>
+                      <div class="col-md-2 col-sm-0 col-xs-0">
+                      
+                    </div>
+                  </div>   <br>
+
+                  <div class="row">
+                    <div class="col-md-2 col-sm-0 col-xs-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <label>Electricity</label>
+                      <input type="text" class="myTextBox form-control" ng-model="Electricity"  
+                               name="Electricity" id="Electricity" autofocus
+                               onkeypress='return isNumber(event)' 
+                       ng-change="householdExpenses(Rent,Maintenance,Electricity,Gas,Water,Phone,Internet,CableTV
+                        ,Counciltaxes,BodyCorporate,HomeContentsinsurance)"        
+
+                               >
+
+
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Electricitycomments"  
+                               name="Electricitycomments" id="Electricitycomments" autofocus>
+                      
+                    </div>
+                    <div class="col-md-2 col-sm-0 col-xs-0">
+                      
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col-md-2 col-sm-0 col-xs-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <label>Gas</label><br>
+                      <input type="text" class="myTextBox form-control " ng-model="Gas"  
+                               name="Gas" id="Gas" autofocus
+                               onkeypress='return isNumber(event)' 
+                        ng-change="householdExpenses(Rent,Maintenance,Electricity,Gas,Water,Phone,Internet,CableTV
+                        ,Counciltaxes,BodyCorporate,HomeContentsinsurance)"       
+
+                               >
+
+
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Gascomments"  
+                               name="Gascomments" id="Gascomments" autofocus>
+                      
+                    </div>
+                      <div class="col-md-2 col-sm-0 col-xs-0">
+                      
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col-md-2 col-sm-0 col-xs-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <label>Water</label>
+                      <input type="text" class="myTextBox form-control " ng-model="Water"  
+                               name="Water" id="Water" autofocus
+                               onkeypress='return isNumber(event)' 
+                      ng-change="householdExpenses(Rent,Maintenance,Electricity,Gas,Water,Phone,Internet,CableTV
+                        ,Counciltaxes,BodyCorporate,HomeContentsinsurance)"
+                               >
+
+
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Watercomments"  
+                               name="Watercomments" id="Watercomments" autofocus>
+                      
+                    </div>
+                    <div class="col-md-2 col-sm-0 col-xs-0">
+                      
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col-md-2 col-sm-0 col-xs-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <label>Phone</label>
+                      <input type="text" class="myTextBox form-control " ng-model="Phone"  
+                               name="Phone" id="Phone" autofocus
+                               onkeypress='return isNumber(event)' 
+                         ng-change="householdExpenses(Rent,Maintenance,Electricity,Gas,Water,Phone,Internet,CableTV
+                        ,Counciltaxes,BodyCorporate,HomeContentsinsurance)"
+                                 >
+
+
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Phonecomments"  
+                               name="Phonecomments" id="Phonecomments" autofocus>
+                      
+                    </div>
+                    <div class="col-md-2 col-sm-0 col-xs-0">
+                      
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col-md-2 col-sm-0 col-xs-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <label>Internet</label>
+                      <input type="text" class="myTextBox form-control" ng-model="Internet"  
+                               name="Internet" id="Internet" autofocus
+                               onkeypress='return isNumber(event)' 
+                       ng-change="householdExpenses(Rent,Maintenance,Electricity,Gas,Water,Phone,Internet,CableTV
+                        ,Counciltaxes,BodyCorporate,HomeContentsinsurance)"
+                               >
+
+
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Internetcomments"  
+                               name="Internetcomments" id="Internetcomments" autofocus>
+                      
+                    </div>
+                     <div class="col-md-2 col-sm-0 col-xs-0">
+                      
+                    </div>
+                  </div><br>
+
+
+                  <div class="row">
+                    <div class="col-md-2 col-sm-0 col-xs-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <label>Cable T.V</label>
+                      <input type="text" class="myTextBox form-control" ng-model="CableTV"  
+                               name="CableTV" id="CableTV" autofocus
+                               onkeypress='return isNumber(event)' 
+                       ng-change="householdExpenses(Rent,Maintenance,Electricity,Gas,Water,Phone,Internet,CableTV
+                        ,Counciltaxes,BodyCorporate,HomeContentsinsurance)"
+                                >
+
+
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="CableTVcomments"  
+                               name="CableTVcomments" id="CableTVcomments" autofocus>
+                      
+                    </div>
+                    <div class="col-md-2 col-sm-0 col-xs-0">
+                      
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col-md-2 col-sm-0 col-xs-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <label>Council taxes</label>
+                      <input type="text" class="myTextBox form-control" ng-model="Counciltaxes"  
+                               name="Counciltaxes" id="Counciltaxes" autofocus
+                               onkeypress='return isNumber(event)' 
+                           ng-change="householdExpenses(Rent,Maintenance,Electricity,Gas,Water,Phone,Internet,CableTV
+                        ,Counciltaxes,BodyCorporate,HomeContentsinsurance)"
+                               >
+
+
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Counciltaxescomments"  
+                               name="Counciltaxescomments" id="Counciltaxescomments" autofocus>
+                      
+                    </div>
+                    <div class="col-md-2 col-sm-0 col-xs-0">
+                      
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col-md-2 col-sm-0 col-xs-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <label>Body Corporate</label>
+                      <input type="text" class="myTextBox form-control " ng-model="BodyCorporate"  
+                               name="BodyCorporate" id="BodyCorporate" autofocus
+                               onkeypress='return isNumber(event)' 
+                      ng-change="householdExpenses(Rent,Maintenance,Electricity,Gas,Water,Phone,Internet,CableTV
+                        ,Counciltaxes,BodyCorporate,HomeContentsinsurance)"
+                               >
+
+
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="BodyCorporatecomments"  
+                               name="BodyCorporatecomments" id="BodyCorporatecomments" autofocus>
+                      
+                    </div>
+                      <div class="col-md-2 col-sm-0 col-xs-0">
+                      
+                    </div>
+                  </div><br>
+
+
+                  <div class="row">
+                    <div class="col-md-2 col-sm-0 col-xs-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <label>Home/Contents insurance</label>
+                      <input type="text" class="myTextBox form-control" ng-model="HomeContentsinsurance"  
+                               name="HomeContentsinsurance" id="HomeContentsinsurance" autofocus
+                               onkeypress='return isNumber(event)' 
+                      ng-change="householdExpenses(Rent,Maintenance,Electricity,Gas,Water,Phone,Internet,CableTV
+                        ,Counciltaxes,BodyCorporate,HomeContentsinsurance)"
+                               >
+
+
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="HomeContentsinsurancecomments"  
+                               name="HomeContentsinsurancecomments" id="HomeContentsinsurancecomments" autofocus>
+                      
+                    </div>
+                       <div class="col-md-2 col-sm-0 col-xs-0">
+                      
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col-md-2 col-sm-0 col-xs-0">
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-12">
+                      <label>Sub Total</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="totalhouseholdExpenses"  
+                               name="totalhouseholdExpenses" id="totoalExpense" autofocus
+                               onkeypress='return isNumber(event)' disabled 
+                      ng-change="totalExpenses(totalhouseholdExpenses,totalshoppingExpenses,totalentertainmentExpenses,
+                      totalpersonalExpenses,totalTransportExpenses,totalDebtExpenses,totalotherExpenses)"
+                               >
+                    </div>
+                    <div class="col-md-6  col-xs-12 col-sm-12">
+                      
+                    </div>
+                  </div>
+                  <!-- household expence-->
+              </div>
+             </div> 
+              <button class="accordion"><h3>Shopping Expenses :{{(+ totalshoppingExpenses | currency)}}</h3></button>
+              <div class="panel">
+                <br>
+                <!--Shoping Expense -->
+                 <div class="row">
+            
+                      
+                      <div class="col-md-2  col-xs-0 col-sm-0">
+                        
+                      </div>
+                      <div class="col-md-4 col-xs-12 col-sm-6">
+                        <label>Food</label>
+                        <input type="text" class="myTextBox form-control" ng-model="Food"  
+                                 name="Food" id="Food" autofocus 
+                                 onkeypress='return isNumber(event)' 
+                         ng-change="shoppingExpenses(Food,Clothes,Householdgroceries,Booksmagazines,Cigarettes,Toys,Pets,Other
+                          )">
+                      
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Foodcomments"  
+                               name="Foodcomments" id="Foodcomments" autofocus>
+                      
+                    </div>
+                     <div class="col-md-2  col-xs-0 col-sm-0">
+                        
+                      </div>
+                  </div> <br>
+
+                  <div class="row">
+                    <div class="col-md-2  col-xs-0 col-sm-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Clothes</label>
+                      <input type="text" class="myTextBox form-control " ng-model="Clothes"  
+                               name="Clothes" id="Clothes" autofocus
+                               onkeypress='return isNumber(event)' 
+                      ng-change="shoppingExpenses(Food,Clothes,Householdgroceries,Booksmagazines,Cigarettes,Toys,Pets,Other
+                          )"
+                               >
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Clothescomments"  
+                               name="Clothescomments" id="BodyCorporatecomments" autofocus>
+                      
+                    </div>
+                     <div class="col-md-2  col-xs-0 col-sm-0">
+                      
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col-md-2  col-xs-0 col-sm-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6 ">
+                      <label>Household groceries</label>
+                      <input type="text" class="myTextBox form-control " ng-model="Householdgroceries"  
+                               name="Householdgroceries" id="Householdgroceries" autofocus
+                               onkeypress='return isNumber(event)' 
+                      ng-change="shoppingExpenses(Food,Clothes,Householdgroceries,Booksmagazines,Cigarettes,Toys,Pets,Other
+                          )"
+                               >
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6 ">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Householdgroceriescomments"  
+                               name="Householdgroceriescomments" id="BodyCorporatecomments" autofocus>
+                      
+                    </div>
+
+                     <div class="col-md-2  col-xs-0 col-sm-0">
+                      
+                    </div>
+                  </div><br>
+
+                   <div class="row">
+                    <div class="col-md-2  col-xs-0 col-sm-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6 ">
+                      <label>Books/magazines</label>
+                      <input type="text" class="myTextBox form-control" ng-model="Booksmagazines"  
+                               name="Booksmagazines" id="Booksmagazines" autofocus
+                               onkeypress='return isNumber(event)' 
+                      ng-change="shoppingExpenses(Food,Clothes,Householdgroceries,Booksmagazines,Cigarettes,Toys,Pets,Other
+                          )"
+                               >
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6 ">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Booksmagazinescomments"  
+                               name="Booksmagazinescomments" id="BodyCorporatecomments" autofocus>
+                      
+                    </div>
+                    <div class="col-md-2  col-xs-0 col-sm-0">
+                      
+                    </div>
+                  </div><br>
+                
+                   <div class="row">
+                    <div class="col-md-2  col-xs-0 col-sm-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6 ">
+                      <label>Cigarettes</label>
+                      <input type="text" class="myTextBox form-control" ng-model="Cigarettes"  
+                               name="Cigarettes" id="Cigarettes" autofocus
+                               onkeypress='return isNumber(event)' 
+                      ng-change="shoppingExpenses(Food,Clothes,Householdgroceries,Booksmagazines,Cigarettes,Toys,Pets,Other
+                          )"
+                               >
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6 ">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Cigarettescomments"  
+                               name="Cigarettescomments" id="Cigarettescomments" autofocus>
+                      
+                    </div>
+                    <div class="col-md-2  col-xs-0 col-sm-0">
+                      
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col-md-2  col-xs-0 col-sm-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6 ">
+                      <label>Toys</label>
+                      <input type="text" class="myTextBox form-control" ng-model="Toys"  
+                               name="Toys" id="Toys" autofocus
+                               onkeypress='return isNumber(event)' 
+                      ng-change="shoppingExpenses(Food,Clothes,Householdgroceries,Booksmagazines,Cigarettes,Toys,Pets,Other
+                          )"
+                               >
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6 ">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Toyscomments"  
+                               name="Toyscomments" id="Toyscomments" autofocus>
+                      
+                    </div>
+                    <div class="col-md-2  col-xs-0 col-sm-0">
+                      
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col-md-2  col-xs-0 col-sm-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6 ">
+                      <label>Pets</label>
+                      <input type="text" class="myTextBox form-control" ng-model="Pets"  
+                               name="Pets" id="Pets" autofocus
+                               onkeypress='return isNumber(event)' 
+                      ng-change="shoppingExpenses(Food,Clothes,Householdgroceries,Booksmagazines,Cigarettes,Toys,Pets,Other
+                          )"
+                               >
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6 ">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Petscomments"  
+                               name="Petscomments" id="Petscomments" autofocus>
+                      
+                    </div>
+
+                    <div class="col-md-2  col-xs-0 col-sm-0">
+                      
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col-md-2  col-xs-0 col-sm-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6 ">
+                      <label>Other</label>
+                      <input type="text" class="myTextBox form-control" ng-model="Other"  
+                               name="Other" id="Other" autofocus
+                               onkeypress='return isNumber(event)' 
+                      ng-change="shoppingExpenses(Food,Clothes,Householdgroceries,Booksmagazines,Cigarettes,Toys,Pets,Other
+                          )"
+                               >
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6 ">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Othercomments"  
+                               name="Othercomments" id="Othercomments" autofocus>
+                      
+                    </div>
+                    <div class="col-md-2  col-xs-0 col-sm-0">
+                      
+                    </div>
+                  </div><br>
+
+
+                  <div class="row">
+                    <div class="col-md-2 col-md-2  col-xs-0 col-sm-0">
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-12">
+                      <label>Sub Total</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="totalshoppingExpenses"  
+                               name="shoppingExpenses" id="shoppingExpenses" autofocus disabled 
+                               onkeypress='return isNumber(event)'
+                        ng-change="totalExpenses(totalhouseholdExpenses,totalshoppingExpenses,totalentertainmentExpenses,
+                      totalpersonalExpenses,totalTransportExpenses,totalDebtExpenses,totalotherExpenses)"
+                               >
+                    </div>
+                    <div class="col-md-6  col-xs-0 col-sm-0">
+                      
+                    </div>
+                  </div>
+                 <!--shoping expense --> 
+              </div><!--Shoping expence -->
+
+              <button class="accordion">
+                <h3>Entertainment Expenses : {{( + totalentertainmentExpenses | currency)}}</h3>
+              </button>
+              <div class="panel">
+                <!--Entertainment Expenses -->
+                    <div class="row">
+                      <br>
+                      
+                      <div class="col-md-2 col-xs-0 col-sm-0">
+                        
+                      </div>
+                      <div class="col-md-4 col-xs-12 col-sm-6">
+                        <label>Meals out</label>
+                        <input type="text" class="myTextBox form-control" ng-model="Mealsout"  
+                                 name="Mealsout" id="Mealsout" autofocus 
+                                 onkeypress='return isNumber(event)' 
+                         ng-change="entertainmentExpenses(Mealsout,Alcohol,Activities,Holidays,Sport,OtherEnter)">
+                      
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Mealsoutcomments"  
+                               name="Mealsoutcomments" id="Mealsoutcomments" autofocus>
+                      
+                    </div>
+
+                    <div class="col-md-2 col-xs-0 col-sm-0">
+                        
+                      </div>
+                  </div> <br>
+
+                  <div class="row">
+                    <div class="col-md-2 col-xs-0 col-sm-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Alcohol</label>
+                      <input type="text" class="myTextBox form-control" ng-model="Alcohol"  
+                               name="Alcohol" id="Alcohol" autofocus
+                               onkeypress='return isNumber(event)' 
+                      ng-change="entertainmentExpenses(Mealsout,Alcohol,Activities,Holidays,Sport,OtherEnter)">
+                               
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Alcoholcomments"  
+                               name="Alcoholcomments" id="Alcoholcomments" autofocus>
+                      
+                    </div>
+
+                     <div class="col-md-2 col-xs-0 col-sm-0">
+                      
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col-md-2 col-xs-0 col-sm-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Activities</label>
+                      <input type="text" class="myTextBox form-control" ng-model="Activities"  
+                               name="Activities" id="Activities" autofocus
+                               onkeypress='return isNumber(event)' 
+                      ng-change="entertainmentExpenses(Mealsout,Alcohol,Activities,Holidays,Sport,OtherEnter)">
+                               
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Activitiescomments"  
+                               name="Activitiescomments" id="Activitiescomments" autofocus>
+                      
+                    </div>
+                    <div class="col-md-2 col-xs-0 col-sm-0">
+                      
+                    </div>
+                  </div><br>
+
+
+                  <div class="row">
+                    <div class="col-md-2 col-xs-0 col-sm-0 ">
+                      
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Holidays</label>
+                      <input type="text" class="myTextBox form-control " ng-model="Holidays"  
+                               name="Holidays" id="Holidays" autofocus
+                               onkeypress='return isNumber(event)' 
+                      ng-change="entertainmentExpenses(Mealsout,Alcohol,Activities,Holidays,Sport,OtherEnter)">
+                               
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Holidayscomments"  
+                               name="Holidayscomments" id="Holidayscomments" autofocus>
+                      
+                    </div>
+
+                    <div class="col-md-2 col-xs-0 col-sm-0 ">
+                      
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col-md-2 col-xs-0 col-sm-0 ">
+                      
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Sport</label>
+                      <input type="text" class="myTextBox form-control" ng-model="Sport"  
+                               name="Sport" id="Sport" autofocus
+                               onkeypress='return isNumber(event)' 
+                      ng-change="entertainmentExpenses(Mealsout,Alcohol,Activities,Holidays,Sport,OtherEnter)">
+                               
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Sportcomments"  
+                               name="Sportcomments" id="Sportcomments" autofocus>
+                      
+                    </div>
+
+                    <div class="col-md-2 col-xs-0 col-sm-0 ">
+                      
+                    </div>
+                  </div><br>
+
+
+                  <div class="row">
+                    <div class="col-md-2 col-xs-0 col-sm-0 ">
+                      
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Other Entertainment</label>
+                      <input type="text" class="myTextBox form-control" ng-model="OtherEnter"  
+                               name="OtherEnter" id="OtherEnter" autofocus
+                               onkeypress='return isNumber(event)' 
+                      ng-change="entertainmentExpenses(Mealsout,Alcohol,Activities,Holidays,Sport,OtherEnter)">
+                               
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="othercomments"  
+                               name="othercomments" id="othercomments" autofocus>
+                      
+                    </div>
+                    <div class="col-md-2 col-xs-0 col-sm-0 ">
+                      
+                    </div>
+                  </div><br>
+
+
+                  <div class="row">
+                    <div class="col-md-2 col-xs-0 col-sm-0 ">
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-12">
+                      <label>Sub Total</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="totalentertainmentExpenses"  
+                               name="totalentertainmentExpenses" id="totalentertainmentExpenses" autofocus
+                               disabled 
+                           onkeypress='return isNumber(event)'
+                        ng-change="totalExpenses(totalhouseholdExpenses,totalshoppingExpenses,totalentertainmentExpenses,
+                      totalpersonalExpenses,totalTransportExpenses,totalDebtExpenses,totalotherExpenses)"       >
+                    </div>
+                    <div class="col-md-6 col-xs-0 col-sm-0 ">
+                      
+                    </div>
+                  </div>
+                <!--Entertainment Expenses -->
+                <br>
+                  
+              </div><!--Entertainment Expenses -->
+              <button class="accordion"><h3>Personal Expenses: {{(+ totalpersonalExpenses | currency)}}</h3></button>
+              <div class="panel">
+                <br>
+                <!--Personal Expenses -->
+                   <div class="row">
+            
+                          
+                          <div class="col-md-2 col-xs-0 col-sm-0 ">
+                            
+                          </div>
+                          <div class="col-md-4 col-xs-12 col-sm-6">
+                            <label>School fees</label>
+                            <input type="text" class="myTextBox form-control" ng-model="Schoolfees"  
+                                     name="Schoolfees" id="Schoolfees" autofocus 
+                                     onkeypress='return isNumber(event)' 
+                             ng-change="personalExpenses(Schoolfees,Educationfees,HealthInsurance,Medicalbills,Medications,Personalcare)">
+                          
+
+
+                        </div>
+                        <div class="col-md-4 col-xs-12 col-sm-6">
+                          <label>Comments</label><br>
+                          <input type="text" class="myTextBox form-control" ng-model="Schoolfeescomments"  
+                                   name="Schoolfeescomments" id="Schoolfeescomments" autofocus>
+                          
+                        </div>
+                        <div class="col-md-2 col-xs-0 col-sm-0 ">
+                            
+                          </div>
+                      </div> <br>
+
+                      <div class="row">
+                        <div class="col-md-2 col-xs-0 col-sm-0">
+                          
+                        </div>
+                        <div class="col-md-4 col-xs-12 col-sm-6">
+                          <label>Education fees</label>
+                          <input type="text" class="myTextBox form-control" ng-model="Educationfees"  
+                                   name="Educationfees" id="Educationfees" autofocus
+                                   onkeypress='return isNumber(event)' 
+                          ng-change="personalExpenses(Schoolfees,Educationfees,HealthInsurance,Medicalbills,Medications,Personalcare)">
+                                   
+
+
+                        </div>
+                        <div class="col-md-4 col-xs-12 col-sm-6">
+                          <label>Comments</label><br>
+                          <input type="text" class="myTextBox form-control" ng-model="Educationfeescomments"  
+                                   name="Educationfeescomments" id="Educationfeescomments" autofocus>
+                          
+                        </div>
+                         <div class="col-md-2 col-xs-0 col-sm-0">
+                          
+                        </div>
+                      </div><br>
+
+
+                      <div class="row">
+                        <div class="col-md-2 col-xs-0 col-sm-0">
+                          
+                        </div>
+                        <div class="col-md-4 col-xs-12 col-sm-6">
+                          <label>Health Insurance</label>
+                          <input type="text" class="myTextBox form-control" ng-model="HealthInsurance"  
+                                   name="HealthInsurance" id="HealthInsurance" autofocus
+                                   onkeypress='return isNumber(event)' 
+                          ng-change="personalExpenses(Schoolfees,Educationfees,HealthInsurance,Medicalbills,Medications,Personalcare)">
+                                   
+
+
+                        </div>
+                        <div class="col-md-4 col-xs-12 col-sm-6">
+                          <label>Comments</label><br>
+                          <input type="text" class="myTextBox form-control"  ng-model="HealthInsurancecomments"  
+                                   name="HealthInsurancecomments" id="HealthInsurancecomments" autofocus>
+                          
+                        </div>
+
+                          <div class="col-md-2 col-xs-0 col-sm-0">
+                          
+                        </div>
+                      </div><br>
+
+                       <div class="row">
+                        <div class="col-md-2 col-xs-0 col-sm-0">
+                          
+                        </div>
+                        <div class="col-md-4 col-xs-12 col-sm-6">
+                          <label>Medical bills</label>
+                          <input type="text" class="myTextBox form-control " ng-model="Medicalbills"  
+                                   name="Medicalbills" id="Medicalbills" autofocus
+                                   onkeypress='return isNumber(event)' 
+                          ng-change="personalExpenses(Schoolfees,Educationfees,HealthInsurance,Medicalbills,Medications,Personalcare)">
+                                   
+
+
+                        </div>
+                        <div class="col-md-4 col-xs-12 col-sm-6">
+                          <label>Comments</label><br>
+                          <input type="text" class="myTextBox form-control" ng-model="Medicalbillscomments"  
+                                   name="Medicalbillscomments" id="Medicalbillscomments" autofocus>
+                          
+                        </div>
+                        <div class="col-md-2 col-xs-0 col-sm-0">
+                          
+                        </div>
+                      </div><br>
+
+                      <div class="row">
+                        <div class="col-md-2 col-xs-0 col-sm-0">
+                          
+                        </div>
+                        <div class="col-md-4 col-xs-12 col-sm-6">
+                          <label>Medications</label>
+                          <input type="text" class="myTextBox form-control" ng-model="Medications"  
+                                   name="Medications" id="Medications" autofocus
+                                   onkeypress='return isNumber(event)' 
+                          ng-change="personalExpenses(Schoolfees,Educationfees,HealthInsurance,Medicalbills,Medications,Personalcare)">
+                                   
+
+
+                        </div>
+                        <div class="col-md-4 col-xs-12 col-sm-6 ">
+                          <label>Comments</label><br>
+                          <input type="text" class="myTextBox form-control" ng-model="Medicationscomments"  
+                                   name="Medicationscomments" id="Medicationscomments" autofocus>
+                          
+                        </div>
+                        <div class="col-md-2 col-xs-0 col-sm-0">
+                          
+                        </div>
+                      </div><br>
+
+                      <div class="row">
+                        <div class="col-md-2 col-xs-0 col-sm-0">
+                          
+                        </div>
+                        <div class="col-md-4 col-xs-12 col-sm-6 ">
+                          <label>Personal care</label>
+                          <input type="text" class="myTextBox form-control " ng-model="Personalcare"  
+                                   name="Personalcare" id="Personalcare" autofocus
+                                   onkeypress='return isNumber(event)' 
+                          ng-change="personalExpenses(Schoolfees,Educationfees,HealthInsurance,Medicalbills,Medications,Personalcare)">
+                                   
+
+
+                        </div>
+                        <div class="col-md-4 col-xs-12 col-sm-6 ">
+                          <label>Comments</label><br>
+                          <input type="text" class="myTextBox form-control" ng-model="Personalcarecomments"  
+                                   name="Personalcarecomments" id="Personalcarecomments" autofocus>
+                          
+                        </div>
+
+                        <div class="col-md-2 col-xs-0 col-sm-0">
+                          
+                        </div>
+                      </div><br>
+
+                      <div class="row">
+                        <div class="col-md-2 col-xs-0 col-sm-0">
+                        </div>
+                        <div class="col-md-4 col-xs-12 col-sm-12">
+                          <label>Sub Total</label><br>
+                          <input type="text" class="myTextBox form-control" ng-model="totalpersonalExpenses"  
+                                   name="totalpersonalExpenses" id="totalpersonalExpenses" autofocus disabled 
+                                   onkeypress='return isNumber(event)'
+                              ng-change="totalExpenses(totalhouseholdExpenses,totalshoppingExpenses,totalentertainmentExpenses,
+                          totalpersonalExpenses,totalTransportExpenses,totalDebtExpenses,totalotherExpenses)"
+                                   >
+                        </div>
+                        <div class="col-md-6 col-xs-0 col-sm-0">
+                          
+                        </div>
+                      </div>
+                <!--Personal Expenses -->
+              </div><!--Personal Expenses -->
+              <button class="accordion"><h3>Transport : {{(+ totalTransportExpenses | currency)}}</h3></button>
+              <div class="panel">
+                <!--Transport Expenses -->
+                   <div class="row">
+            
+                      <br>
+                      <div class="col-md-2 col-xs-0 col-sm-0">
+                        
+                      </div>
+                      <div class="col-md-4 col-xs-12 col-sm-6 ">
+                        <label>Car maintenance</label>
+                        <input type="text" class="myTextBox form-control" ng-model="Carmaintenance"  
+                                 name="Carmaintenance" id="Carmaintenance" autofocus 
+                                 onkeypress='return isNumber(event)' 
+                         ng-change="transportExpenses(Carmaintenance,Carinsurance,Petrol,Publictransport)">
+                      
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6 ">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Carmaintenancecomments"  
+                               name="Carmaintenancecomments" id="Carmaintenancecomments" autofocus>
+                      
+                    </div>
+                     <div class="col-md-2 col-xs-0 col-sm-0">
+                        
+                      </div>
+                  </div> <br>
+
+                  <div class="row">
+                    <div class="col-md-2 col-xs-0 col-sm-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Car insurance</label>
+                      <input type="text" class="myTextBox form-control" ng-model="Carinsurance"  
+                               name="Carinsurance" id="Carinsurance" autofocus
+                               onkeypress='return isNumber(event)' 
+                     ng-change="transportExpenses(Carmaintenance,Carinsurance,Petrol,Publictransport)">
+                               
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Carinsurancecomments"  
+                               name="Carinsurancecomments" id="Carinsurancecomments" autofocus>
+                      
+                    </div>
+                     <div class="col-md-2 col-xs-0 col-sm-0">
+                      
+                    </div>
+                  </div><br>
+
+
+                   <div class="row">
+                    <div class="col-md-2 col-xs-0 col-sm-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Petrol</label>
+                      <input type="text" class="myTextBox form-control " ng-model="Petrol"  
+                               name="Petrol" id="Petrol" autofocus
+                               onkeypress='return isNumber(event)' 
+                      ng-change="transportExpenses(Carmaintenance,Carinsurance,Petrol,Publictransport)">
+                               
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Petrolcomments"  
+                               name="Petrolcomments" id="Petrolcomments" autofocus>
+                      
+                    </div>
+                     <div class="col-md-2 col-xs-0 col-sm-0">
+                      
+                    </div>
+                  </div><br>
+
+                  <div class="row">
+                    <div class="col-md-2 col-xs-0 col-sm-0">
+                      
+                    </div>
+                    <div class="col-md-4">
+                      <label>Public transport</label>
+                      <input type="text" class="myTextBox form-control" ng-model="Publictransport"  
+                               name="Publictransport" id="Publictransport" autofocus
+                               onkeypress='return isNumber(event)' 
+                      ng-change="transportExpenses(Carmaintenance,Carinsurance,Petrol,Publictransport)">
+                               
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Publictransportcomments"  
+                               name="Publictransportcomments" id="Publictransportcomments" autofocus>
+                      
+                    </div>
+                    <div class="col-md-2 col-xs-0 col-sm-0">
+                      
+                    </div>
+                  </div><br>
+
+
+                  <div class="row">
+                    <div class="col-md-2 col-xs-0 col-sm-0">
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-12">
+                      <label>Sub Total</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="totalTransportExpenses"  
+                               name="totalTransportExpenses" id="totalTransportExpenses" autofocus disabled 
+                               onkeypress='return isNumber(event)'
+                        ng-change="totalExpenses(totalhouseholdExpenses,totalshoppingExpenses,totalentertainmentExpenses,
+                      totalpersonalExpenses,totalTransportExpenses,totalDebtExpenses,totalotherExpenses)"
+                               >
+                    </div>
+                    <div class="col-md-6  col-xs-0 col-sm-0">
+                      
+                    </div>
+                  </div> 
+                  <!--Transport Expenses -->
+              </div><!--Transport Expenses -->
+              <button class="accordion"><h3>Debt :{{( + totalDebtExpenses | currency) }}</h3></button>
+              <div class="panel">
+                <!--Dept Expenses: -->
+                 <div class="row">
+            
+                      <br>
+                      <div class="col-md-2 col-xs-0 col-sm-0">
+                        
+                      </div>
+                      <div class="col-md-4 col-xs-12 col-sm-6">
+                        <label>Mortgage</label>
+                        <input type="text" class="myTextBox form-control" ng-model="Mortgage"  
+                                 name="Mortgage" id="Mortgage" autofocus 
+                                 onkeypress='return isNumber(event)' 
+                         ng-change="DebtExpenses(Mortgage,CreditCard,PersonalLoan,Otherdebts)">
+                      
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Mortgagecomments"  
+                               name="Mortgagecomments" id="Carmaintenancecomments" autofocus>
+                      
+                    </div>
+                    <div class="col-md-2 col-xs-0 col-sm-0">
+                        
+                      </div>
+                  </div> <br>
+
+
+                  <div class="row">
+                    <div class="col-md-2 col-xs-0 col-sm-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Credit Card</label>
+                      <input type="text" class="myTextBox form-control" ng-model="CreditCard"  
+                               name="CreditCard" id="CreditCard" autofocus
+                               onkeypress='return isNumber(event)' 
+                     ng-change="DebtExpenses(Mortgage,CreditCard,PersonalLoan,Otherdebts)">
+                               
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="CreditCardcomments"  
+                               name="CreditCardcomments" id="CreditCardcomments" autofocus>
+                      
+                    </div>
+                    <div class="col-md-2 col-xs-0 col-sm-0">
+                      
+                    </div>
+                  </div><br>
+
+
+                   <div class="row">
+                    <div class="col-md-2 col-xs-0 col-sm-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Personal Loan</label>
+                      <input type="text" class="myTextBox form-control" ng-model="PersonalLoan"  
+                               name="PersonalLoan" id="PersonalLoan" autofocus
+                               onkeypress='return isNumber(event)' 
+                     ng-change="DebtExpenses(Mortgage,CreditCard,PersonalLoan,Otherdebts)">
+                               
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="PersonalLoancomments"  
+                               name="PersonalLoancomments" id="PersonalLoancomments" autofocus>
+                      
+                    </div>
+                     <div class="col-md-2 col-xs-0 col-sm-0">
+                      
+                    </div>
+                  </div><br>
+
+
+                   <div class="row">
+                    <div class="col-md-2 col-xs-0 col-sm-0">
+                      
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Other debts</label>
+                      <input type="text" class="myTextBox form-control" ng-model="Otherdebts"  
+                               name="Otherdebts" id="Otherdebts" autofocus
+                               onkeypress='return isNumber(event)' 
+                     ng-change="DebtExpenses(Mortgage,CreditCard,PersonalLoan,Otherdebts)">
+                               
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-6">
+                      <label>Comments</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="Otherdebtscomments"  
+                               name="Otherdebtscomments" id="Otherdebtscomments" autofocus>
+                      
+                    </div>
+                    <div class="col-md-2 col-xs-0 col-sm-0">
+                      
+                    </div>
+                  </div><br>
+
+
+                  <div class="row">
+                    <div class="col-md-2 col-xs-0 col-sm-0">
+                    </div>
+                    <div class="col-md-4 col-xs-12 col-sm-12">
+                      <label>Sub Total</label><br>
+                      <input type="text" class="myTextBox form-control" ng-model="totalDebtExpenses"  
+                               name="totalDebtExpenses" id="totalDebtExpenses" autofocus disabled 
+                        onkeypress='return isNumber(event)'
+                       ng-change="totalExpenses(totalhouseholdExpenses,totalshoppingExpenses,totalentertainmentExpenses,
+                      totalpersonalExpenses,totalTransportExpenses,totalDebtExpenses,totalotherExpenses)"        >
+                    </div>
+                    <div class="col-md-6  col-xs-12 col-sm-12">
+                      
+                    </div>
+                  </div>
+                  
+                   <!--Dept Expenses: -->
+              </div> <!--Dept Expenses: -->
+
+              <button class="accordion"> <h3>Other Expenses : {{(+ totalotherExpenses | currency)}}</h3></button>
+              <div class="panel">
+                <!--other Expenses-->
+                <div class="row">
+            
+                          <br>
+                          <div class="col-md-2 col-xs-0 col-sm-0">
+                            
+                          </div>
+                          <div class="col-md-4 col-xs-12 col-sm-6">
+                            <label>Gifts</label>
+                            <input type="text" class="myTextBox form-control " ng-model="Gifts"  
+                                     name="Gifts" id="Gifts" autofocus 
+                                     onkeypress='return isNumber(event)' 
+                             ng-change="otherExpenses(Gifts,Donations,OtherExpenses)">
+                          
+
+
+                        </div>
+                        <div class="col-md-4 col-xs-12 col-sm-6">
+                          <label>Comments</label><br>
+                          <input type="text" class="myTextBox form-control" ng-model="Giftscomments"  
+                                   name="Giftscomments" id="Giftscomments" autofocus>
+                          
+                        </div>
+                        <div class="col-md-2 col-xs-0 col-sm-0">
+                            
+                          </div>
+                      </div> <br>
+
+
+
+                       <div class="row">
+                        <div class="col-md-2 col-xs-0 col-sm-0">
+                          
+                        </div>
+                        <div class="col-md-4">
+                          <label>Donations</label>
+                          <input type="text" class="myTextBox form-control" ng-model="Donations"  
+                                   name="Donations" id="Donations" autofocus
+                                   onkeypress='return isNumber(event)' 
+                          ng-change="otherExpenses(Gifts,Donations,OtherExpenses)">
+                                   
+
+
+                        </div>
+                        <div class="col-md-4 col-xs-12 col-sm-6">
+                          <label>Comments</label><br>
+                          <input type="text" class="myTextBox form-control" ng-model="Donationscomments"  
+                                   name="Donationscomments" id="Donationscomments" autofocus>
+                          
+                        </div>
+
+                          <div class="col-md-2 col-xs-0 col-sm-0">
+                          
+                        </div>
+                      </div><br>
+
+
+
+                      <div class="row">
+                        <div class="col-md-2 col-xs-0 col-sm-0">
+                          
+                        </div>
+                        <div class="col-md-4 col-xs-12 col-sm-6">
+                          <label>Other</label>
+                          <input type="text" class="myTextBox form-control" ng-model="OtherExpenses"  
+                                   name="OtherExpenses" id="OtherExpenses" autofocus
+                                   onkeypress='return isNumber(event)' 
+                          ng-change="otherExpenses(Gifts,Donations,OtherExpenses);totalExpenses(totalhouseholdExpenses,totalshoppingExpenses,totalentertainmentExpenses,
+                          totalpersonalExpenses,totalTransportExpenses,totalDebtExpenses,totalotherExpenses);leftoverTotalExpenses(totalIncome,totalallExpenses);">
+                                   
+
+
+                        </div>
+                        <div class="col-md-4 col-xs-12 col-sm-6">
+                          <label>Comments</label><br>
+                          <input type="text" class="myTextBox form-control" ng-model="OtherExpensescomments"  
+                                   name="OtherExpensescomments" id="OtherExpensescomments" autofocus>
+                          
+                        </div>
+                         <div class="col-md-2 col-xs-0 col-sm-0">
+                          
+                        </div>
+                      </div><br>
+
+
+                       <div class="row">
+                        <div class="col-md-2 col-xs-0 col-sm-0">
+                        </div>
+                        <div class="col-md-4 col-xs-12 col-sm-12">
+                          <label>Sub Total</label><br>
+                          <input type="text" class="myTextBox form-control" ng-model="totalotherExpenses"  
+                                   name="totalotherExpenses" autofocus  readonly 
+                            ng-change="totalExpenses(totalhouseholdExpenses,totalshoppingExpenses,totalentertainmentExpenses,
+                          totalpersonalExpenses,totalTransportExpenses,totalDebtExpenses,totalotherExpenses)"       >
+                        </div>
+                        <div class="col-md-6  col-xs-12 col-sm-12">
+                          
+                        </div>
+                      </div>
+
+                
+              
+                   </div><!--other expence -->
+
+                   <!--other Expenses -->
+               
+                 <button class="accordion "><h3>Total Expenses {{(+ totalallExpenses | currency)}}</h3>
+                   </button><!--TotalExpense-->
+                      <div class="panel ">
+                           <div class="row">
+                                <div class="col-md-4 col-xs-12 col-sm-12">
+                                  <h3>Total Expenses {{(+ totalallExpenses | currency)}}</h3><br>
+                                  <input type="text" class="myTextBox form-control" ng-model="totalallExpenses" 
+                                             disabled 
+                                           name="totalallExpenses"  autofocus>
+                                </div>
+                                <div class="col-md-4 col-xs-0 col-sm-0">
+                                  
+                                </div>
+                                <div class="col-md-4  col-xs-0 col-sm-0">
+                                  
+                                </div>
+                          </div>
+                      </div><!--TotalExpense-->
+
+        </div><!-- Total Expense-->
+      </div>
+         <div id="dropdown-4" class="dropdown ">    
+        <button class="accordion dropdown-link"><h3>Total Left Over: {{(+ totalleftoverExpenses | currency)}}</h3></button>
+
+        <div class="panel dropdown-container">
+           <!--Total Left Over -->
+             <div class="row">
+            
+                  <br>
+                  <div class="col-md-2  col-xs-0 col-sm-0">
+                    
+                  </div>
+                  <div class="col-md-4  col-xs-12 col-sm-6">
+                     <label>Total Income</label><br>
+                  <input type="text" class="myTextBox form-control" ng-model="totalIncome" 
+                  onkeypress='return isNumber(event)'   
+                  name="Childsupportcomments" id="Childsupportcomments" autofocus
+                  
+                  ng-change="leftoverTotalExpenses(totalIncome,totalallExpenses);"
+                  >
+                     
+                  
+
+
+                </div>
+                <div class="col-md-4  col-xs-12 col-sm-6">
+                  <label>Comments</label><br>
+                  <input type="text" class="myTextBox form-control" ng-model="FinaltotalIncomecomments"  
+                           name="FinaltotalIncomecomments" id="FinaltotalIncomecomments" autofocus>
+                  
+                </div>
+
+                <div class="col-md-2  col-xs-0 col-sm-0">
+                    
+                  </div>
+              </div> <br>
+
+              <div class="row">
+                  
+                  <div class="col-md-2  col-xs-0 col-sm-0">
+                    
+                  </div>
+                  <div class="col-md-4  col-xs-12 col-sm-6">
+                    <label>Expenses</label>
+                    <input type="text" class="myTextBox form-control" ng-model="totalallExpenses" 
+                             onkeypress='return isNumber(event)'  
+                           name="totalallExpenses"  autofocus
+                           ng-change="leftoverTotalExpenses(totalIncome,totalallExpenses);">
+                  
+
+
+                </div>
+                <div class="col-md-4  col-xs-12 col-sm-6">
+                  <label>Comments</label><br>
+                  <input type="text" class="myTextBox form-control" ng-model="FinaltotalExpensescomments"  
+                           name="FinaltotalExpensescomments" id="FinaltotalExpensescomments" autofocus>
+                  
+                </div>
+                  <div class="col-md-2  col-xs-0 col-sm-0">
+                    
+                  </div>
+              </div> <br>
+                <!--The Verdict -->
+                 
+
+                <!--Verdict Total -->
+                <div class="row">
+                <div class="col-md-4 col-xs-12 col-sm-12">
+                  <h3>Total Left Over {{(+ totalleftoverExpenses)}}</h3><br>
+                  <input type="text" class="myTextBox form-control" ng-model="totalleftoverExpenses" 
+                             onkeypress='return isNumber(event)' readonly
+                           name="totalleftoverExpenses" id="totalleftoverExpenses" autofocus>
+                </div>
+                <div class="col-md-4 col-xs-0 col-sm-0">
+                  
+                </div>
+                <div class="col-md-4  col-xs-0 col-sm-0">
+                  
+                </div>
+              </div> 
+
+           <!--Total Left Over -->
+        
+         
+        </div><!--Total Left Over -->
+      </div>
+    </form>    
+     
+</div>
+
+
+
+      </div>
+      </form>
+    </div>
+
+    <script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+    acc[i].onclick = function(){
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+        }
+    }
+}
+</script>
+
+
+
+
+
+
+
+<script type="text/javascript">
+  $("a").click(function(e) {
+    var tClass = $(this).attr("id"),
+        content = $("div.content." + tClass),
+        link = $(this);
+
+    $("div.content:not('." + tClass + "')").fadeOut("fast");
+    $("a").not(link).text("Open");
+    content.fadeToggle("fast", function() {
+        link.hide().text((content.is(":visible") ? "Close" : "Open")).fadeIn("fast");
+    });
+    
+    e.preventDefault();
+});
+</script>
+<script type="text/javascript">
+ $(document).ready(function(){
+
+ $(".dropdown-link").click(function(){
+ $(".dropdown-container").slideUp('slow')
+ $(this).closest('.dropdown').find('.dropdown-container').slideDown('slow');
+ 
+ 
+ });
+
+});
+
+</script>
+
+</body>
+</html>
